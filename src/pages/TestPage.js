@@ -3,7 +3,6 @@ import { observer } from 'mobx-react'
 import { Row, Col, Button, Form, Input, Select } from 'antd'
 import Store from '../store/TestPage'
 import setAttr from '../store/setAttr'
-import getParam from '../utils/getParam'
 import './testPage.less'
 
 const FormItem = Form.Item
@@ -20,14 +19,6 @@ class TestPage extends Component {
   componentDidMount() {
     store.getData()
     store.getCommon()
-  }
-
-  search = () => {
-    const params = getParam([
-      ['queryTerm', item => `好运来：${item}`],
-      'queryCont',
-    ], store.state)
-    console.log(params)
   }
 
   render() {
@@ -58,7 +49,7 @@ class TestPage extends Component {
               />
             </Col>
             <Col span={8} style={{ textAlign: 'right' }}>
-              <Button onClick={this.search} type="primary">搜索</Button>
+              <Button onClick={() => { store.search() }} type="primary">搜索</Button>
             </Col>
           </Row>
         </Form>

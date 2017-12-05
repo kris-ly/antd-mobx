@@ -1,8 +1,9 @@
-import { observable, action, runInAction } from 'mobx'
+import { observable } from 'mobx'
 import request from '../utils/request'
 import { getCommonData } from './commonRequest'
 import mobxReaction from './mobxReaction'
 import { API } from '../utils/config'
+import getParam from '../utils/getParam'
 
 class TestPage {
   reactions = []
@@ -28,11 +29,11 @@ class TestPage {
     this.reactions.forEach((callback) => { callback && callback() })
   }
 
-  @action getCommon() {
+  getCommon = () => {
     getCommonData(this.data)
   }
 
-  @action getData() {
+  getData = () => {
     request({
       url: API.MAINLIST,
     })
@@ -42,6 +43,13 @@ class TestPage {
         this.data.name = data.name
       })
     })
+  }
+  search = () => {
+    const params = getParam([
+      ['queryTerm', item => `好运来：${item}`],
+      'queryCont',
+    ], this.state)
+    console.log(params)
   }
 }
 
