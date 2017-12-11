@@ -7,7 +7,7 @@ import './testPage.less'
 
 const FormItem = Form.Item
 const { Option } = Select
-const store = new Store(process.env.NODE_ENV === 'development')
+const isDebug = process.env.NODE_ENV === 'development'
 const list = [
   '年',
   '月',
@@ -17,15 +17,20 @@ const list = [
 @observer
 class TestPage extends Component {
   componentDidMount() {
-    store.getData()
-    store.getCommon()
+    this.store.getData()
+    this.store.getCommon()
   }
+  componentWillUnmount() {
+    if (isDebug) this.store.clearReactions()
+  }
+  store = new Store(isDebug)
 
   render() {
     const formItemLayout = {
       labelCol: { span: 8 },
       wrapperCol: { span: 16 },
     }
+    const { store } = this
     return (
       <div className="content">
         <h1>测试</h1>

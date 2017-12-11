@@ -39,9 +39,7 @@ class TestPage {
     })
     .then(res => res.json())
     .then((data) => {
-      runInAction(() => {
-        this.data.name = data.name
-      })
+      this.data.name = data.name
     })
   }
   search = () => {
