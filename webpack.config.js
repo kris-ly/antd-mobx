@@ -12,7 +12,7 @@ var config = {
     index: './src/index',
   },
   output:{
-    path: path.resolve(__dirname, "dist/build"),
+    path: path.resolve(__dirname, "dist"),
     filename: isDebug ? '[name].js' : '[name].[chunkHash].js',
     chunkFilename: isDebug ? '[name].js' : '[name].[chunkHash].js',
     publicPath:"/",
@@ -111,11 +111,7 @@ var config = {
         },
       },
     ],
-  },
-  devServer:{
-    historyApiFallback: true,
-    contentBase: path.join(__dirname, "dist"),
-  },
+  }
 }
 function addPlugin(configObj) {
   config.plugins = configObj.plugins.concat([
