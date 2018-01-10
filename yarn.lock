@@ -2425,7 +2425,7 @@ expand-range@^1.8.1:
   dependencies:
     fill-range "^2.1.0"
 
-express@^4.13.3:
+express@^4.13.3, express@^4.16.2:
   version "4.16.2"
   resolved "http://registry.npmjs.lianjia.com:7001/express/download/express-4.16.2.tgz#e35c6dfe2d64b7dca0a5cd4f21781be3299e076c"
   dependencies:
@@ -3654,9 +3654,19 @@ log-symbols@^1.0.2:
   dependencies:
     chalk "^1.0.0"
 
+log-symbols@^2.1.0:
+  version "2.1.0"
+  resolved "http://registry.npmjs.lianjia.com:7001/log-symbols/download/log-symbols-2.1.0.tgz#f35fa60e278832b538dc4dddcbb478a45d3e3be6"
+  dependencies:
+    chalk "^2.0.1"
+
 loglevel@^1.4.1:
   version "1.6.0"
   resolved "http://registry.npmjs.lianjia.com:7001/loglevel/download/loglevel-1.6.0.tgz#ae0caa561111498c5ba13723d6fb631d24003934"
+
+loglevelnext@^1.0.1:
+  version "1.0.2"
+  resolved "http://registry.npmjs.lianjia.com:7001/loglevelnext/download/loglevelnext-1.0.2.tgz#eb81a7ac45ca5749ee0e40d75c5d3d2f7cb7705d"
 
 longest@^1.0.1:
   version "1.0.1"
@@ -3668,7 +3678,7 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.3
   dependencies:
     js-tokens "^3.0.0"
 
-loud-rejection@^1.0.0:
+loud-rejection@^1.0.0, loud-rejection@^1.6.0:
   version "1.6.0"
   resolved "http://registry.npmjs.lianjia.com:7001/loud-rejection/download/loud-rejection-1.6.0.tgz#5b46f80147edee578870f086d04821cf998e551f"
   dependencies:
@@ -3778,6 +3788,10 @@ mime@1.3.x:
 mime@1.4.1, mime@^1.2.11, mime@^1.3.4:
   version "1.4.1"
   resolved "http://registry.npmjs.lianjia.com:7001/mime/download/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
+
+mime@^2.1.0:
+  version "2.2.0"
+  resolved "http://registry.npmjs.lianjia.com:7001/mime/download/mime-2.2.0.tgz#161e541965551d3b549fa1114391e3a3d55b923b"
 
 minimalistic-assert@^1.0.0:
   version "1.0.0"
@@ -6214,6 +6228,10 @@ upper-case@^1.1.1:
   version "1.1.3"
   resolved "http://registry.npmjs.lianjia.com:7001/upper-case/download/upper-case-1.1.3.tgz#f6b4501c2ec4cdd26ba78be7222961de77621598"
 
+url-join@^2.0.2:
+  version "2.0.3"
+  resolved "http://registry.npmjs.lianjia.com:7001/url-join/download/url-join-2.0.3.tgz#15db1fdde905651c3a221a78da5feb8fc809d372"
+
 url-loader@^0.5.7:
   version "0.5.9"
   resolved "http://registry.npmjs.lianjia.com:7001/url-loader/download/url-loader-0.5.9.tgz#cc8fea82c7b906e7777019250869e569e995c295"
@@ -6343,7 +6361,7 @@ webpack-chunk-hash@^0.5.0:
   dependencies:
     "@types/webpack" "^3.0.5"
 
-webpack-dev-middleware@^1.11.0, webpack-dev-middleware@^1.9.0:
+webpack-dev-middleware@^1.11.0:
   version "1.12.0"
   resolved "http://registry.npmjs.lianjia.com:7001/webpack-dev-middleware/download/webpack-dev-middleware-1.12.0.tgz#d34efefb2edda7e1d3b5dbe07289513219651709"
   dependencies:
@@ -6352,6 +6370,18 @@ webpack-dev-middleware@^1.11.0, webpack-dev-middleware@^1.9.0:
     path-is-absolute "^1.0.0"
     range-parser "^1.0.3"
     time-stamp "^2.0.0"
+
+webpack-dev-middleware@^2.0.4:
+  version "2.0.4"
+  resolved "http://registry.npmjs.lianjia.com:7001/webpack-dev-middleware/download/webpack-dev-middleware-2.0.4.tgz#7d8943a609121021bb72772a41636e229346cb41"
+  dependencies:
+    loud-rejection "^1.6.0"
+    memory-fs "~0.4.1"
+    mime "^2.1.0"
+    path-is-absolute "^1.0.0"
+    range-parser "^1.0.3"
+    url-join "^2.0.2"
+    webpack-log "^1.0.1"
 
 webpack-dev-server@^2.4.5:
   version "2.9.4"
@@ -6385,14 +6415,23 @@ webpack-dev-server@^2.4.5:
     webpack-dev-middleware "^1.11.0"
     yargs "^6.6.0"
 
-webpack-hot-middleware@^2.15.0:
-  version "2.20.0"
-  resolved "http://registry.npmjs.lianjia.com:7001/webpack-hot-middleware/download/webpack-hot-middleware-2.20.0.tgz#cb896d837758b6408fe0afeeafdc0e5316b15319"
+webpack-hot-middleware@^2.21.0:
+  version "2.21.0"
+  resolved "http://registry.npmjs.lianjia.com:7001/webpack-hot-middleware/download/webpack-hot-middleware-2.21.0.tgz#7b3c113a7a4b301c91e0749573c7aab28b414b52"
   dependencies:
     ansi-html "0.0.7"
     html-entities "^1.2.0"
     querystring "^0.2.0"
     strip-ansi "^3.0.0"
+
+webpack-log@^1.0.1:
+  version "1.1.1"
+  resolved "http://registry.npmjs.lianjia.com:7001/webpack-log/download/webpack-log-1.1.1.tgz#a0c7beb385245da7b2172afe46c02cf3a471ef31"
+  dependencies:
+    chalk "^2.1.0"
+    log-symbols "^2.1.0"
+    loglevelnext "^1.0.1"
+    uuid "^3.1.0"
 
 webpack-manifest-plugin@^1.3.2:
   version "1.3.2"

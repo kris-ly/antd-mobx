@@ -33,8 +33,8 @@ const request = ({ url, params, isPost = false} ) => (
     }, 10000)
 
     enhancedFetch(url, params, isPost)
-      .then((resp) => {
-        resolve(resp)
+      .then((res) => {
+        resolve(res.json())
       })
       .catch((e) => {
         reject(e.stack)

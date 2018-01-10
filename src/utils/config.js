@@ -1,7 +1,6 @@
 export const API = {
-  // MAINLIST: '/main/list',
-  MAINLIST: '/mocks/main/list.json',
-  COMMONDATA: '/mocks/common/list.json',
+  MAINLIST: '/api/main/list',
+  COMMONDATA: '/api/common/list',
 }
 
 export const indexPage = '/'

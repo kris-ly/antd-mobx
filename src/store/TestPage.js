@@ -37,9 +37,9 @@ class TestPage {
     request({
       url: API.MAINLIST,
     })
-    .then(res => res.json())
     .then((data) => {
-      this.data.name = data.name
+      if (data.errno !== 0) return
+      this.data.name = data.data.name
     })
   }
   search = () => {

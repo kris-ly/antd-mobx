@@ -67,9 +67,18 @@ const routers = [{
   visible: false,
 }]
 
-render(
-  <BrowserRouter>
-    <App routers={routers} />
-  </BrowserRouter>,
-  document.getElementById('root'),
-)
+const renderApp = () => {
+  render(
+    <BrowserRouter>
+      <App routers={routers} />
+    </BrowserRouter>,
+    document.getElementById('root'),
+  )
+}
+renderApp()
+
+if (module.hot) {
+   module.hot.accept('./pages/App', function() {
+     renderApp();
+   })
+ }

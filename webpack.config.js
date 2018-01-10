@@ -118,20 +118,27 @@ var config = {
   },
 }
 function addPlugin(configObj) {
-  configObj.plugins.push(new webpack.optimize.UglifyJsPlugin({
-    sourceMap: true,
-    output: {
-      comments: false,
-    },
-    compress: {
-      drop_console: true,
-      warnings: false,
-    },
-  }))
-  configObj.plugins.push(new webpack.optimize.AggressiveMergingPlugin())
+  config.plugins = configObj.plugins.concat([
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      output: {
+        comments: false,
+      },
+      compress: {
+        drop_console: true,
+        warnings: false,
+      },
+    }),
+    new webpack.optimize.AggressiveMergingPlugin()
+    ])
 }
 
-if (!isDebug) addPlugin(config)
+if (!isDebug) {
+  addPlugin(config)
+} else {
+  config.plugins.push(new webpack.HotModuleReplacementPlugin())
+  config.entry.hot = 'webpack-hot-middleware/client'
+}
 
 module.exports = config;
 /* eslint-enable */

@@ -21,9 +21,9 @@ class App extends Component {
     const { routers } = this.props
     return (
       <Layout>
-        <Header className="header">Welcome！</Header>
+        <Header className="header">Welcome kris！</Header>
         <Layout>
-          <Sider style={{ width: '300px' }}>
+          <Sider width={180}>
             <Menu
               mode="inline"
               style={{ height: '100%' }}
