@@ -4,9 +4,8 @@
   "description": "报表",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline",
     "build": "node tools/build.js",
-    "server": "node tools/run.js"
+    "start": "node tools/run.js"
   },
   "dependencies": {
     "antd": "^2.10.2",

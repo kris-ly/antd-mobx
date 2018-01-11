@@ -9,15 +9,18 @@ var rimraf = require('rimraf')
 var opn = require('opn')
 
 var config = require('../webpack.config.js')
-var compiler = webpack(config)
-
-rimraf.sync('/dist/build/*', { nosort: true, dot: true })
-
-var server = new WebpackDevServer(compiler, {
+var options = {
   historyApiFallback: false,
   contentBase: path.resolve(__dirname, '../dist'),
   hot: true,
-})
+}
+var compiler = webpack(config)
+
+WebpackDevServer.addDevServerEntrypoints(config, options);
+
+rimraf.sync('/dist/build/*', { nosort: true, dot: true })
+
+var server = new WebpackDevServer(compiler, options)
 
 var app = server.app
 
@@ -61,8 +64,8 @@ app.use(function(req, res, next) {
 });
 
 app.use(historyApiFallback())
-app.use(webpackHotMiddleware(compiler))
 app.use(server.middleware)
+app.use(webpackHotMiddleware(compiler))
 
 app.listen(3000, function () {
   console.log('app listening on port 3000!\n');

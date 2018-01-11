@@ -9,15 +9,14 @@ const FormItem = Form.Item
 const { Option } = Select
 const isDebug = process.env.NODE_ENV === 'development'
 const list = [
-  '年',
-  '月',
-  '日',
+  '请选择',
+  '姓名',
+  '电话号码',
 ]
 
 @observer
 class TestPage extends Component {
   componentDidMount() {
-    this.store.getData()
     this.store.getCommon()
   }
   componentWillUnmount() {
@@ -31,11 +30,12 @@ class TestPage extends Component {
       wrapperCol: { span: 16 },
     }
     const { store } = this
+
+    const { name, age, gender } = store.data.info
     return (
       <div className="content">
-        <h1>测试</h1>
-        <div>{store.data.name}</div>
-        <div>{store.data.user}</div>
+        <h1>示例</h1>
+        <div>{`你好，${store.data.user}`}</div>
         <Form>
           <Row>
             <Col span={8}>
@@ -43,21 +43,23 @@ class TestPage extends Component {
                 <Select
                   {...setAttr(store, 'queryTerm')}
                 >
-                  {list.map(item => <Option key={item}>{item}</Option>)}
+                  {list.map((item, idx) => <Option key={idx}>{item}</Option>)}
                 </Select>
               </FormItem>
             </Col>
-            <Col span={8}>
+            <Col span={7} offset={1}>
               <Input
                 placeholder="请输入关键字"
                 {...setAttr(store, 'queryCont')}
               />
             </Col>
-            <Col span={8} style={{ textAlign: 'right' }}>
+            <Col span={7} offset={1}>
               <Button onClick={() => { store.search() }} type="primary">搜索</Button>
             </Col>
           </Row>
         </Form>
+        {!name ? null :
+        <div>{`${name}-${age}-${gender}`}</div>}
       </div>
     )
   }

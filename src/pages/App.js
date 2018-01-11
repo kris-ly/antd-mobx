@@ -23,7 +23,7 @@ class App extends Component {
       <Layout>
         <Header className="header">Welcome!</Header>
         <Layout>
-          <Sider width={200}>
+          <Sider width={180}>
             <Menu
               mode="inline"
               style={{ height: '100%' }}

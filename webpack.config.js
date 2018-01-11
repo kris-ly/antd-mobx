@@ -133,6 +133,7 @@ if (!isDebug) {
   addPlugin(config)
 } else {
   config.plugins.push(new webpack.HotModuleReplacementPlugin())
+  config.plugins.push(new webpack.NamedModulesPlugin())
   config.entry.hot = 'webpack-hot-middleware/client'
 }
 

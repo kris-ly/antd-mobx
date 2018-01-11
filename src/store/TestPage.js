@@ -1,6 +1,7 @@
 import { observable } from 'mobx'
 import request from '../utils/request'
 import { getCommonData } from './commonRequest'
+import { message } from 'antd'
 import mobxReaction from './mobxReaction'
 import { API } from '../utils/config'
 import getParam from '../utils/getParam'
@@ -8,11 +9,11 @@ import getParam from '../utils/getParam'
 class TestPage {
   reactions = []
   @observable data = {
-    name: '',
     user: '',
+    info: {},
   }
   @observable state = {
-    queryTerm: '',
+    queryTerm: '0',
     queryCont: '',
   }
 
@@ -33,21 +34,26 @@ class TestPage {
     getCommonData(this.data)
   }
 
-  getData = () => {
+  search = () => {
+    const params = getParam([
+      ['queryTerm', item => `${item}`],
+      'queryCont',
+    ], this.state)
+    console.log(params)
+    if (params.queryTerm === '0') {
+      message.warning('请选择查询条件！')
+      return
+    }
     request({
       url: API.MAINLIST,
     })
     .then((data) => {
-      if (data.errno !== 0) return
-      this.data.name = data.data.name
+      if (data.errno !== 0) {
+        message.error('查无此人..')
+        return
+      }
+      this.data.info = data.data
     })
-  }
-  search = () => {
-    const params = getParam([
-      ['queryTerm', item => `好运来：${item}`],
-      'queryCont',
-    ], this.state)
-    console.log(params)
   }
 }
 

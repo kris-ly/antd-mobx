@@ -3,6 +3,8 @@
   "error": "",
   "request_id": "2017120810425571831",
   "data": {
-    "name": "hello world!"
+    "name": "kris",
+    "age": 18,
+    "gender": "male"
   }
 }
