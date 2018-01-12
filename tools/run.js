@@ -32,6 +32,7 @@ function response(res, content, type) {
 }
 
 function mock(res, file) {
+  console.log(file)
   fs.readFile(file, 'utf8', function(err, content) {
     if (err) {
       console.log('err', err)
@@ -44,7 +45,6 @@ function mock(res, file) {
 
 app.use(function(req, res, next) {
   var filePath = path.resolve(__dirname, '../mocks/' + req.path +'.json')
-  console.log(filePath)
   if (/api/.test(filePath)) {
     fs.exists(filePath, function(exist) {
       if(exist) {
