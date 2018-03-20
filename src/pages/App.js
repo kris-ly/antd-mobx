@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Switch, Link } from 'react-router-dom'
+import request from '../utils/request'
+import { API } from '../utils/config'
 import { Menu, Icon, Layout } from 'antd';
 import './app.less'
 
@@ -7,8 +9,7 @@ const { Header, Sider, Content } = Layout;
 const { SubMenu, Item } = Menu
 
 const renderItem = (item) => {
-  const { visible, name, path, iconType } = item
-  if (!visible) return null
+  const { name, path, iconType } = item
   return (
     <Item key={name}>
       <Icon type={iconType} /><Link style={{ display: 'inline' }} to={path}>{name}</Link>
@@ -17,8 +18,22 @@ const renderItem = (item) => {
 }
 
 class App extends Component {
+  state = {
+    memuList: [],
+  }
+  componentDidMount() {
+    request({
+      url: API.MENULIST,
+    }).then((res) => {
+      if (res.errno !== 0) return
+      this.setState({
+        memuList: res.data,
+      })
+    })
+  }
   render() {
     const { routers } = this.props
+    const { memuList } = this.state
     return (
       <Layout>
         <Header className="header">Welcome!</Header>
@@ -28,7 +43,7 @@ class App extends Component {
               mode="inline"
               style={{ height: '100%' }}
             >
-              {routers.map(item => (
+              {memuList.map(item => (
                 item.children ?
                   <SubMenu
                     key={item.name}

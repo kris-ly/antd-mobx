@@ -1,0 +1,31 @@
+{
+    "errno": 0,
+    "error": "",
+    "request_id": "2017120810425571831",
+    "data": [{
+            "name": "mainPage",
+            "path": "/",
+            "iconType": "mail"
+        },
+        {
+            "name": "testPage",
+            "path": "/test",
+            "iconType": "code"
+        },
+        {
+            "name": "user",
+            "iconType": "mail",
+            "children": [{
+                    "name": "userEdit",
+                    "path": "/user/edit/2",
+                    "iconType": "setting"
+                },
+                {
+                    "name": "userAdd",
+                    "path": "/user/add",
+                    "iconType": "appstore"
+                }
+            ]
+        }
+    ]
+}
