@@ -1,11 +1,12 @@
 /* eslint-disable */
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var WebpackManifestPlugin = require('webpack-manifest-plugin');
-var WebpackChunkHash = require('webpack-chunk-hash');
 var webpack = require('webpack');
-
+var TerserPlugin = require('terser-webpack-plugin');
+var postcssConfig = require('./tools/postcss.config');
+var merge = require('webpack-merge');
 var isDebug = !process.argv.includes('--release');
+var nodeEnv = isDebug ? 'development' : 'production';
 
 var config = {
   entry:{
@@ -17,27 +18,32 @@ var config = {
     chunkFilename: isDebug ? '[name].js' : '[name].[chunkHash].js',
     publicPath:"/",
   },
+  mode: nodeEnv,
   devtool: isDebug ? 'source-map' : false,
+  optimization: {
+    splitChunks: {
+      minSize: 244000,
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'initial',
+          name: 'vendor',
+          priority: 20,
+        },
+      },
+    },
+  },
 
   plugins:[
     new HtmlWebpackPlugin({
       template:"./src/index.ejs",
     }),
-    new WebpackManifestPlugin(),
-    new WebpackChunkHash(),
+    new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || nodeEnv) }),
+
+    new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en|zh-cn/),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(isDebug ? "development" : "production"),
+      'process.env.NODE_ENV': JSON.stringify(nodeEnv),
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: m => m.context &&
-        m.context.includes('node_modules'),
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'runtime',
-      minChunks: Infinity,
-    }),
-    new webpack.HashedModuleIdsPlugin(),
   ],
   module:{
     rules:[
@@ -47,11 +53,18 @@ var config = {
         loader:"babel-loader",
         options:{
           presets:[
-            ["env", {modules: false}],
-            "react",
-            "stage-2",
+            ['@babel/preset-env', {
+              modules: false,
+              targets: {
+                ie: '9',
+              },
+            }],
+            '@babel/preset-react',
           ],
           plugins:[
+            ['@babel/plugin-proposal-decorators', {
+              decoratorsBeforeExport: false,
+            }],
             [
               "import",
               {
@@ -59,7 +72,8 @@ var config = {
                 style: true,
               },
             ],
-            "transform-decorators-legacy",
+            '@babel/plugin-transform-runtime',
+            '@babel/plugin-proposal-class-properties'
           ],
         },
       },
@@ -70,11 +84,14 @@ var config = {
           'css-loader',
           {
             loader: 'postcss-loader',
-            options: {
-              config: './tools/postcss.config.js',
-            },
+            options: postcssConfig,
           },
-          'less-loader',
+          {
+            loader: "less-loader",
+            options: {
+              javascriptEnabled: true
+            }
+          }
         ],
       },
       {
@@ -113,24 +130,46 @@ var config = {
     ],
   }
 }
-function addPlugin(configObj) {
-  config.plugins = configObj.plugins.concat([
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      output: {
-        comments: false,
-      },
-      compress: {
-        drop_console: true,
-        warnings: false,
-      },
-    }),
-    new webpack.optimize.AggressiveMergingPlugin()
-    ])
-}
 
 if (!isDebug) {
-  addPlugin(config)
+  config = merge.smart({}, config, {
+    plugins: [
+      new webpack.ProgressPlugin({
+        profile: true,
+      }),
+    ],
+    profile: true,
+    devtool: false,
+    optimization: {
+      mergeDuplicateChunks: true,
+      removeAvailableModules: true,
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            parse: {
+              ecma: 8,
+            },
+            compress: {
+              ecma: 5,
+              warnings: false,
+              comparisons: false,
+            },
+            mangle: {
+              safari10: true,
+            },
+            output: {
+              ecma: 5,
+              comments: false,
+              ascii_only: true,
+            },
+          },
+          cache: true,
+          parallel: true,
+          sourceMap: true,
+        }),
+      ],
+    },
+  })
 } else {
   config.plugins.push(new webpack.HotModuleReplacementPlugin())
   config.plugins.push(new webpack.NamedModulesPlugin())

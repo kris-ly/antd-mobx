@@ -1,14 +1,13 @@
-module.exports = () => ({
+const calc = require('postcss-calc');
+const presetEnv = require('postcss-preset-env');
+
+module.exports = {
   plugins: [
-    require('postcss-import')(),
-    require('postcss-custom-properties')(),
-    require('postcss-custom-media')(),
-    require('postcss-media-minmax')(),
-    require('postcss-custom-selectors')(),
-    require('postcss-nesting')(),
-    require('pleeease-filters')(),
-    require('pixrem')(),
-    require('postcss-flexbugs-fixes')(),
-    require('autoprefixer')(),
+    calc(),
+    presetEnv({
+      browsers: 'chrome >= 29, ie >= 9',
+      autoprefixer: true,
+      stage: 3,
+    }),
   ],
-});
+}
